@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}PublicEye | Smart Civic Grievance System{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <span class="eyebrow">Major Project Implementation</span>
+        <h1>Citizen complaints, officer workflows, and transparent civic accountability in one platform.</h1>
+        <p>
+            PublicEye helps citizens report public issues with evidence and location details, while officers and administrators
+            monitor assignments, SLA breaches, and department performance through a structured workflow.
+        </p>
+        <div class="hero-actions">
+            <a class="primary-button" href="/register">Create Citizen Account</a>
+            <a class="ghost-button link-button" href="/login">Login to Dashboard</a>
+        </div>
+        <div class="demo-card">
+            <h3>Demo Accounts</h3>
+            <p><strong>Admin:</strong> admin@publiceye.local / Admin@123</p>
+            <p><strong>Officer:</strong> roads.officer@publiceye.local / Officer@123</p>
+            <p><strong>Citizen:</strong> citizen@publiceye.local / Citizen@123</p>
+        </div>
+    </div>
+    <div class="hero-panel">
+        <div class="metric-card">
+            <span class="metric-label">Workflow</span>
+            <strong>New -> Assigned -> In Progress -> Resolved -> Closed</strong>
+        </div>
+        <div class="metric-card">
+            <span class="metric-label">Evidence</span>
+            <strong>Image upload, location tagging, update timeline</strong>
+        </div>
+        <div class="metric-card">
+            <span class="metric-label">Governance</span>
+            <strong>Role-based access, SLA escalation, analytics</strong>
+        </div>
+    </div>
+</section>
+
+<section class="grid-two">
+    <article class="panel">
+        <h2>Core capabilities</h2>
+        <ul class="feature-list">
+            <li>Citizens can register civic issues with photo evidence and location details.</li>
+            <li>Municipal officers can triage, assign, and update complaints through a strict workflow.</li>
+            <li>Administrators can monitor complaints, department performance, and escalated cases.</li>
+            <li>Every complaint keeps a timestamped audit trail for accountability and transparency.</li>
+        </ul>
+    </article>
+    <article class="panel">
+        <h2>Project value</h2>
+        <ul class="feature-list">
+            <li>Real-world e-governance problem with clear social impact.</li>
+            <li>Strong interview talking points around RBAC, workflow engines, and analytics.</li>
+            <li>Expandable architecture for cloud deployment and notification services.</li>
+            <li>Submission-ready structure with documentation, seeded data, and tests.</li>
+        </ul>
+    </article>
+</section>
+{% endblock %}

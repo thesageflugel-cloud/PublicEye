@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Report Complaint | PublicEye{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Complaint Submission</span>
+        <h1>Report a civic issue</h1>
+        <p>Provide clear details, preferred department, evidence image, and location data for faster resolution.</p>
+    </div>
+</section>
+
+<section class="panel">
+    <form method="post" action="/complaints" enctype="multipart/form-data" class="form-grid two-col">
+        <label>
+            <span>Issue title</span>
+            <input type="text" name="title" required>
+        </label>
+        <label>
+            <span>Category</span>
+            <select name="category" required>
+                {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            <span>Priority</span>
+            <select name="priority" required>
+                {% for priority in priorities %}
+                    <option value="{{ priority.value }}">{{ priority.value }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            <span>Target department</span>
+            <select name="department_id">
+                <option value="">Auto-assign later</option>
+                {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label class="full-span">
+            <span>Description</span>
+            <textarea name="description" rows="5" required></textarea>
+        </label>
+        <label>
+            <span>Location / landmark</span>
+            <input type="text" name="location_text" placeholder="Street, market, colony, landmark" required>
+        </label>
+        <label>
+            <span>Ward / zone</span>
+            <input type="text" name="ward" placeholder="Optional">
+        </label>
+        <label>
+            <span>Latitude</span>
+            <input type="text" name="latitude" id="latitude" placeholder="Optional">
+        </label>
+        <label>
+            <span>Longitude</span>
+            <input type="text" name="longitude" id="longitude" placeholder="Optional">
+        </label>
+        <label class="full-span">
+            <span>Evidence image</span>
+            <input type="file" name="image" accept=".png,.jpg,.jpeg,.webp">
+        </label>
+        <div class="button-row full-span">
+            <button type="button" class="ghost-button" data-fill-location>Use my current location</button>
+            <button type="submit" class="primary-button">Submit complaint</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

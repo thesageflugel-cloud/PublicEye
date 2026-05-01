@@ -1,0 +1,7 @@
+{% if flashes %}
+    <section class="flash-stack">
+        {% for flash in flashes %}
+            <div class="flash flash-{{ flash.level }}">{{ flash.message }}</div>
+        {% endfor %}
+    </section>
+{% endif %}

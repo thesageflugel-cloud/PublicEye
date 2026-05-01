@@ -1,0 +1,10 @@
+.venv/
+.venv-deploytest/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.env
+pytest-cache-files-*/
+storage/publiceye.db
+storage/uploads/

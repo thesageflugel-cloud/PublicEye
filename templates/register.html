@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Register | PublicEye{% endblock %}
+
+{% block content %}
+<section class="auth-shell">
+    <article class="auth-card wide-card">
+        <span class="eyebrow">Citizen Onboarding</span>
+        <h1>Create a citizen account</h1>
+        <form method="post" action="/register" class="form-grid two-col">
+            <label>
+                <span>Full name</span>
+                <input type="text" name="full_name" required>
+            </label>
+            <label>
+                <span>Email</span>
+                <input type="email" name="email" required>
+            </label>
+            <label>
+                <span>Phone</span>
+                <input type="text" name="phone" placeholder="Optional">
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" name="password" required>
+            </label>
+            <label>
+                <span>Confirm password</span>
+                <input type="password" name="confirm_password" required>
+            </label>
+            <div></div>
+            <button type="submit" class="primary-button">Create account</button>
+        </form>
+        <p class="muted-copy">Officer and admin accounts are managed from the admin dashboard.</p>
+    </article>
+</section>
+{% endblock %}

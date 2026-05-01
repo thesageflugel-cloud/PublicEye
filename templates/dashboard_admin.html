@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard | PublicEye{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Administration Console</span>
+        <h1>System-wide monitoring and escalation control</h1>
+        <p>Track complaint resolution, department performance, account creation, and pending assignments.</p>
+    </div>
+</section>
+
+<section class="stats-grid">
+    <article class="stat-card"><span>Total complaints</span><strong>{{ metrics.total_complaints }}</strong></article>
+    <article class="stat-card"><span>Open complaints</span><strong>{{ metrics.open_complaints }}</strong></article>
+    <article class="stat-card"><span>Escalated cases</span><strong>{{ metrics.escalated_complaints }}</strong></article>
+    <article class="stat-card"><span>Avg resolution</span><strong>{{ metrics.average_resolution_hours }}h</strong></article>
+</section>
+
+<section class="grid-two">
+    <article class="panel">
+        <div class="section-heading">
+            <h2>Department performance</h2>
+            <p>Resolution volume and average closure time by department.</p>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Total</th>
+                        <th>Resolved</th>
+                        <th>Open</th>
+                        <th>Avg hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in metrics.department_summary %}
+                        <tr>
+                            <td>{{ row.name }}</td>
+                            <td>{{ row.total }}</td>
+                            <td>{{ row.resolved }}</td>
+                            <td>{{ row.open }}</td>
+                            <td>{{ row.avg_hours }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">No department analytics available yet.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </article>
+    <article class="panel">
+        <div class="section-heading">
+            <h2>Create staff account</h2>
+            <p>Provision officer or admin users from the control panel.</p>
+        </div>
+        <form method="post" action="/admin/users/create-officer" class="form-grid">
+            <label><span>Full name</span><input type="text" name="full_name" required></label>
+            <label><span>Email</span><input type="email" name="email" required></label>
+            <label><span>Phone</span><input type="text" name="phone"></label>
+            <label><span>Password</span><input type="password" name="password" required></label>
+            <label>
+                <span>Role</span>
+                <select name="role" required>
+                    <option value="Officer">Officer</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </label>
+            <label>
+                <span>Department</span>
+                <select name="department_id">
+                    <option value="">Select department</option>
+                    {% for department in departments %}
+                        <option value="{{ department.id }}">{{ department.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <button type="submit" class="primary-button">Create account</button>
+        </form>
+        <div class="stacked-summary">
+            <p><strong>Total users:</strong> {{ user_stats.total_users }}</p>
+            <p><strong>Active users:</strong> {{ user_stats.active_users }}</p>
+            <p><strong>Citizens:</strong> {{ user_stats.role_counts.get("Citizen", 0) }}</p>
+            <p><strong>Officers:</strong> {{ user_stats.role_counts.get("Officer", 0) }}</p>
+            <p><strong>Admins:</strong> {{ user_stats.role_counts.get("Admin", 0) }}</p>
+        </div>
+    </article>
+</section>
+
+<section class="panel">
+    <div class="section-heading">
+        <h2>Recent complaints</h2>
+        <p>Open a case to assign departments, officers, or adjust workflow status.</p>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Issue</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Department</th>
+                    <th>Escalation</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for complaint in metrics.recent_complaints %}
+                    <tr>
+                        <td>{{ complaint.reference_code }}</td>
+                        <td>{{ complaint.title }}</td>
+                        <td><span class="status-pill">{{ complaint.status.value }}</span></td>
+                        <td>{{ complaint.priority.value }}</td>
+                        <td>{{ complaint.department.name if complaint.department else "Unassigned" }}</td>
+                        <td>Level {{ complaint.escalation_level }}</td>
+                        <td><a href="/complaints/{{ complaint.id }}">Open</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="empty-state">No complaints available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

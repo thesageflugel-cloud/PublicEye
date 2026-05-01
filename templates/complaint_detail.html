@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}{{ complaint.reference_code }} | PublicEye{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Complaint Detail</span>
+        <h1>{{ complaint.title }}</h1>
+        <p>{{ complaint.reference_code }} • {{ complaint.category }} • {{ complaint.location_text }}</p>
+    </div>
+    <div class="button-row">
+        <span class="status-pill">{{ complaint.status.value }}</span>
+        <span class="chip">{{ complaint.priority.value }}</span>
+    </div>
+</section>
+
+<section class="grid-two">
+    <article class="panel">
+        <div class="section-heading">
+            <h2>Complaint summary</h2>
+            <p>Citizen details, location context, ownership, and SLA tracking.</p>
+        </div>
+        <div class="detail-grid">
+            <div><span>Citizen</span><strong>{{ complaint.citizen.full_name }}</strong></div>
+            <div><span>Department</span><strong>{{ complaint.department.name if complaint.department else "Not assigned" }}</strong></div>
+            <div><span>Assigned officer</span><strong>{{ complaint.assigned_officer.full_name if complaint.assigned_officer else "Not assigned" }}</strong></div>
+            <div><span>Escalation</span><strong>Level {{ complaint.escalation_level }}</strong></div>
+            <div><span>Created</span><strong>{{ complaint.created_at|datetime }}</strong></div>
+            <div><span>SLA</span><strong>{{ complaint.due_at|sla }}</strong></div>
+        </div>
+        <p class="complaint-description">{{ complaint.description }}</p>
+        {% if complaint.ward %}
+            <p><strong>Ward:</strong> {{ complaint.ward }}</p>
+        {% endif %}
+        {% if complaint.latitude and complaint.longitude %}
+            <p><strong>Coordinates:</strong> {{ complaint.latitude }}, {{ complaint.longitude }}</p>
+        {% endif %}
+        {% if complaint.image_path %}
+            <div class="evidence-block">
+                <h3>Evidence image</h3>
+                <img src="{{ complaint.image_path }}" alt="Complaint evidence" class="evidence-image">
+            </div>
+        {% endif %}
+        {% if complaint.resolution_proof_path %}
+            <div class="evidence-block">
+                <h3>Resolution proof</h3>
+                <img src="{{ complaint.resolution_proof_path }}" alt="Resolution proof" class="evidence-image">
+            </div>
+        {% endif %}
+    </article>
+
+    <article class="panel">
+        <div class="section-heading">
+            <h2>Post update</h2>
+            <p>Add comments, evidence, or coordination notes to the case timeline.</p>
+        </div>
+        <form method="post" action="/complaints/{{ complaint.id }}/comment" enctype="multipart/form-data" class="form-grid">
+            <label class="full-span">
+                <span>Comment</span>
+                <textarea name="message" rows="4" required></textarea>
+            </label>
+            <label class="full-span">
+                <span>Optional image attachment</span>
+                <input type="file" name="attachment" accept=".png,.jpg,.jpeg,.webp">
+            </label>
+            <button type="submit" class="primary-button">Post update</button>
+        </form>
+
+        {% if current_user.role.value == "Admin" %}
+            <div class="action-block">
+                <h3>Assign complaint</h3>
+                <form method="post" action="/complaints/{{ complaint.id }}/assign" class="form-grid">
+                    <label>
+                        <span>Department</span>
+                        <select name="department_id" required>
+                            {% for department in departments %}
+                                <option value="{{ department.id }}" {% if complaint.department_id == department.id %}selected{% endif %}>{{ department.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <label>
+                        <span>Officer</span>
+                        <select name="officer_id">
+                            <option value="">Assign later</option>
+                            {% for officer in officers %}
+                                <option value="{{ officer.id }}" {% if complaint.assigned_officer_id == officer.id %}selected{% endif %}>{{ officer.full_name }}{% if officer.department %} - {{ officer.department.name }}{% endif %}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <label class="full-span">
+                        <span>Assignment note</span>
+                        <textarea name="message" rows="3">Complaint assigned after triage.</textarea>
+                    </label>
+                    <button type="submit" class="ghost-button">Assign complaint</button>
+                </form>
+            </div>
+        {% endif %}
+
+        {% if current_user.role.value in ["Officer", "Admin"] %}
+            <div class="action-block">
+                <h3>Update workflow status</h3>
+                <form method="post" action="/complaints/{{ complaint.id }}/status" enctype="multipart/form-data" class="form-grid">
+                    <label>
+                        <span>New status</span>
+                        <select name="new_status" required>
+                            {% for status in statuses %}
+                                <option value="{{ status.value }}" {% if complaint.status.value == status.value %}selected{% endif %}>{{ status.value }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <label class="full-span">
+                        <span>Progress note</span>
+                        <textarea name="message" rows="4" required></textarea>
+                    </label>
+                    <label class="full-span">
+                        <span>Proof image</span>
+                        <input type="file" name="proof" accept=".png,.jpg,.jpeg,.webp">
+                    </label>
+                    <button type="submit" class="primary-button">Save workflow update</button>
+                </form>
+            </div>
+        {% endif %}
+    </article>
+</section>
+
+<section class="panel">
+    <div class="section-heading">
+        <h2>Activity timeline</h2>
+        <p>Every action on the complaint is recorded for transparency and auditability.</p>
+    </div>
+    <div class="timeline">
+        {% for update in complaint.updates %}
+            <article class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="timeline-meta">
+                        <strong>{{ update.actor.full_name }}</strong>
+                        <span>{{ update.update_type|title }}</span>
+                        <time>{{ update.created_at|datetime }}</time>
+                    </div>
+                    <p>{{ update.message }}</p>
+                    {% if update.previous_status and update.new_status %}
+                        <p class="muted-copy">Status changed from {{ update.previous_status }} to {{ update.new_status }}.</p>
+                    {% endif %}
+                    {% if update.attachment_path %}
+                        <a href="{{ update.attachment_path }}" target="_blank">View attachment</a>
+                    {% endif %}
+                </div>
+            </article>
+        {% else %}
+            <p class="empty-state">No activity recorded yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

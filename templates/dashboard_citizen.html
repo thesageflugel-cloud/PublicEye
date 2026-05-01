@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Citizen Dashboard | PublicEye{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Citizen Portal</span>
+        <h1>Welcome, {{ current_user.full_name }}</h1>
+        <p>Track your civic complaints, view updates, and submit new issues with evidence.</p>
+    </div>
+    <a class="primary-button" href="/complaints/new">Report New Issue</a>
+</section>
+
+<section class="stats-grid">
+    <article class="stat-card"><span>Total complaints</span><strong>{{ metrics.total }}</strong></article>
+    <article class="stat-card"><span>Open</span><strong>{{ metrics.open }}</strong></article>
+    <article class="stat-card"><span>Resolved</span><strong>{{ metrics.resolved }}</strong></article>
+    <article class="stat-card"><span>Escalated</span><strong>{{ metrics.escalated }}</strong></article>
+</section>
+
+<section class="panel">
+    <div class="section-heading">
+        <h2>Your complaints</h2>
+        <p>Each record includes status, SLA, department, and evidence trail.</p>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Reference</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Department</th>
+                    <th>SLA</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint.reference_code }}</td>
+                        <td>{{ complaint.title }}</td>
+                        <td><span class="status-pill">{{ complaint.status.value }}</span></td>
+                        <td>{{ complaint.priority.value }}</td>
+                        <td>{{ complaint.department.name if complaint.department else "Pending Assignment" }}</td>
+                        <td>{{ complaint.due_at|sla }}</td>
+                        <td><a href="/complaints/{{ complaint.id }}">View</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="empty-state">No complaints yet. Report your first issue to get started.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
