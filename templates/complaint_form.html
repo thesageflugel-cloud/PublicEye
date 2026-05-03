@@ -7,15 +7,22 @@
     <div>
         <span class="eyebrow">Complaint Submission</span>
         <h1>Report a civic issue</h1>
-        <p>Provide clear details, preferred department, evidence image, and location data for faster resolution.</p>
+        <p>Provide a clear description, evidence, and a precise map-linked location to help the right department act faster.</p>
     </div>
 </section>
 
 <section class="panel">
-    <form method="post" action="/complaints" enctype="multipart/form-data" class="form-grid two-col">
+    <form method="post" action="/complaints" enctype="multipart/form-data" class="form-grid two-col complaint-form-shell">
+        <div class="full-span form-section-heading">
+            <div>
+                <span class="eyebrow">Step 1</span>
+                <h2>Describe the issue</h2>
+            </div>
+            <p>Give enough context for the complaint to be triaged without follow-up calls.</p>
+        </div>
         <label>
             <span>Issue title</span>
-            <input type="text" name="title" required>
+            <input type="text" name="title" placeholder="Example: Large pothole near college gate" required>
         </label>
         <label>
             <span>Category</span>
@@ -44,30 +51,71 @@
         </label>
         <label class="full-span">
             <span>Description</span>
-            <textarea name="description" rows="5" required></textarea>
+            <textarea name="description" rows="5" placeholder="What happened, how severe it is, and how it affects the public..." required></textarea>
         </label>
-        <label>
-            <span>Location / landmark</span>
-            <input type="text" name="location_text" placeholder="Street, market, colony, landmark" required>
-        </label>
-        <label>
-            <span>Ward / zone</span>
-            <input type="text" name="ward" placeholder="Optional">
-        </label>
-        <label>
-            <span>Latitude</span>
-            <input type="text" name="latitude" id="latitude" placeholder="Optional">
-        </label>
-        <label>
-            <span>Longitude</span>
-            <input type="text" name="longitude" id="longitude" placeholder="Optional">
-        </label>
+
+        <div class="full-span form-section-heading">
+            <div>
+                <span class="eyebrow">Step 2</span>
+                <h2>Pin the exact location</h2>
+            </div>
+            <p>Use current location or click on the map to make the complaint easier to find on the ground.</p>
+        </div>
+
+        <div class="full-span map-shell">
+            <div class="map-stage">
+                <div
+                    class="map-canvas"
+                    data-complaint-map
+                    data-lat-target="#latitude"
+                    data-lng-target="#longitude"
+                    data-location-target="#location_text"
+                ></div>
+                <div class="map-overlay-card">
+                    <strong>Location assistant</strong>
+                    <p class="muted-copy" data-map-status>Map tools are loading. You can still type the landmark manually.</p>
+                    <div class="button-row">
+                        <button type="button" class="ghost-button" data-fill-location>Use my current location</button>
+                        <button type="button" class="ghost-button" data-clear-location>Clear pin</button>
+                    </div>
+                </div>
+            </div>
+            <aside class="location-sidebar">
+                <label class="full-span">
+                    <span>Location / landmark</span>
+                    <input type="text" name="location_text" id="location_text" placeholder="Street, market, colony, landmark" required>
+                </label>
+                <label>
+                    <span>Ward / zone</span>
+                    <input type="text" name="ward" placeholder="Optional">
+                </label>
+                <label>
+                    <span>Latitude</span>
+                    <input type="text" name="latitude" id="latitude" placeholder="Optional">
+                </label>
+                <label>
+                    <span>Longitude</span>
+                    <input type="text" name="longitude" id="longitude" placeholder="Optional">
+                </label>
+                <div class="location-tip">
+                    <strong>Google Maps ready</strong>
+                    <p>If a Google Maps API key is configured, clicking the map will set coordinates and help officers locate the issue more accurately.</p>
+                </div>
+            </aside>
+        </div>
+
+        <div class="full-span form-section-heading">
+            <div>
+                <span class="eyebrow">Step 3</span>
+                <h2>Add evidence</h2>
+            </div>
+            <p>Attach a supporting image if available so the case can be verified and prioritized faster.</p>
+        </div>
         <label class="full-span">
             <span>Evidence image</span>
             <input type="file" name="image" accept=".png,.jpg,.jpeg,.webp">
         </label>
         <div class="button-row full-span">
-            <button type="button" class="ghost-button" data-fill-location>Use my current location</button>
             <button type="submit" class="primary-button">Submit complaint</button>
         </div>
     </form>

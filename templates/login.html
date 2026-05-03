@@ -4,21 +4,31 @@
 
 {% block content %}
 <section class="auth-shell">
-    <article class="auth-card">
-        <span class="eyebrow">Secure Access</span>
-        <h1>Login to PublicEye</h1>
-        <form method="post" action="/login" class="form-grid">
-            <label>
-                <span>Email</span>
-                <input type="email" name="email" placeholder="you@example.com" required>
-            </label>
-            <label>
-                <span>Password</span>
-                <input type="password" name="password" placeholder="Enter password" required>
-            </label>
-            <button type="submit" class="primary-button full-width">Login</button>
-        </form>
-        <p class="muted-copy">Need a citizen account? <a href="/register">Register here</a>.</p>
+    <article class="auth-card auth-split-card">
+        <div class="auth-intro">
+            <span class="eyebrow">Secure Access</span>
+            <h1>Login to PublicEye</h1>
+            <p>Continue to your citizen, officer, or administrator workspace.</p>
+            <div class="roadmap-tags">
+                <span class="chip">Complaint tracking</span>
+                <span class="chip">Field updates</span>
+                <span class="chip">Escalation oversight</span>
+            </div>
+        </div>
+        <div class="auth-form-panel">
+            <form method="post" action="/login" class="form-grid">
+                <label>
+                    <span>Email</span>
+                    <input type="email" name="email" placeholder="you@example.com" required>
+                </label>
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="password" placeholder="Enter password" required>
+                </label>
+                <button type="submit" class="primary-button full-width">Login</button>
+            </form>
+            <p class="muted-copy">Need a citizen account? <a href="/register">Register here</a>.</p>
+        </div>
     </article>
 </section>
 {% endblock %}

@@ -3,17 +3,46 @@
 {% block title %}PublicEye | Smart Civic Grievance System{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <div class="hero-copy">
-        <span class="eyebrow">Major Project Implementation</span>
-        <h1>Citizen complaints, officer workflows, and transparent civic accountability in one platform.</h1>
+<section class="hero hero-rich">
+    <div class="hero-copy hero-copy-rich">
+        <span class="eyebrow">Smart Civic Operations</span>
+        <h1>Track city issues from citizen report to verified resolution with one polished control center.</h1>
         <p>
-            PublicEye helps citizens report public issues with evidence and location details, while officers and administrators
-            monitor assignments, SLA breaches, and department performance through a structured workflow.
+            PublicEye combines complaint intake, evidence capture, location intelligence, officer workflows, and
+            accountability analytics in one civic service platform built for faster response and clearer public trust.
         </p>
         <div class="hero-actions">
             <a class="primary-button" href="/register">Create Citizen Account</a>
             <a class="ghost-button link-button" href="/login">Login to Dashboard</a>
+        </div>
+        <div class="hero-mini-grid">
+            <article class="mini-insight">
+                <span class="metric-label">Traceable workflow</span>
+                <strong>New -> Assigned -> In Progress -> Resolved -> Closed</strong>
+            </article>
+            <article class="mini-insight">
+                <span class="metric-label">Location aware</span>
+                <strong>Landmarks, coordinates, evidence, and map-ready reporting</strong>
+            </article>
+        </div>
+    </div>
+    <div class="hero-panel hero-preview-card">
+        <div class="preview-grid">
+            <article class="preview-panel">
+                <span class="metric-label">Citizen experience</span>
+                <strong>Simple reporting with evidence and location context</strong>
+                <p>Reduce vague complaints by collecting category, description, image proof, and a precise incident spot.</p>
+            </article>
+            <article class="preview-panel">
+                <span class="metric-label">Operations visibility</span>
+                <strong>Priority queues, SLA pressure, and ownership tracking</strong>
+                <p>Let departments triage faster and keep administrators informed about slow-moving cases.</p>
+            </article>
+            <article class="preview-panel accent-panel">
+                <span class="metric-label">What teachers can see</span>
+                <strong>Social impact + full-stack engineering + expandable architecture</strong>
+                <p>Perfect for explaining RBAC, workflow systems, analytics, uploads, mapping, and future AI features.</p>
+            </article>
         </div>
         <div class="demo-card">
             <h3>Demo Accounts</h3>
@@ -22,23 +51,28 @@
             <p><strong>Citizen:</strong> citizen@publiceye.local / Citizen@123</p>
         </div>
     </div>
-    <div class="hero-panel">
-        <div class="metric-card">
-            <span class="metric-label">Workflow</span>
-            <strong>New -> Assigned -> In Progress -> Resolved -> Closed</strong>
-        </div>
-        <div class="metric-card">
-            <span class="metric-label">Evidence</span>
-            <strong>Image upload, location tagging, update timeline</strong>
-        </div>
-        <div class="metric-card">
-            <span class="metric-label">Governance</span>
-            <strong>Role-based access, SLA escalation, analytics</strong>
-        </div>
-    </div>
 </section>
 
-<section class="grid-two">
+<section class="stats-grid spotlight-stats">
+    <article class="stat-card">
+        <span>Citizen to field workflow</span>
+        <strong>5-step</strong>
+    </article>
+    <article class="stat-card">
+        <span>Core roles</span>
+        <strong>3</strong>
+    </article>
+    <article class="stat-card">
+        <span>Evidence-driven cases</span>
+        <strong>Image + location</strong>
+    </article>
+    <article class="stat-card">
+        <span>Built to extend</span>
+        <strong>Maps, AI, email, SMS</strong>
+    </article>
+</section>
+
+<section class="grid-two feature-grid">
     <article class="panel">
         <h2>Core capabilities</h2>
         <ul class="feature-list">
@@ -57,5 +91,19 @@
             <li>Submission-ready structure with documentation, seeded data, and tests.</li>
         </ul>
     </article>
+</section>
+
+<section class="panel roadmap-panel">
+    <div class="section-heading">
+        <h2>Upgrade-ready architecture</h2>
+        <p>The current build is ready for polished UI, Google Maps, notifications, and AI assistance without a full rewrite.</p>
+    </div>
+    <div class="roadmap-tags">
+        <span class="chip">Complaint intelligence</span>
+        <span class="chip">Map-based location picking</span>
+        <span class="chip">Email alerts</span>
+        <span class="chip">SMS escalation</span>
+        <span class="chip">Officer summarization</span>
+    </div>
 </section>
 {% endblock %}

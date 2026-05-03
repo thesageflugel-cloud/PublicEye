@@ -7,7 +7,7 @@
     <div>
         <span class="eyebrow">Complaint Detail</span>
         <h1>{{ complaint.title }}</h1>
-        <p>{{ complaint.reference_code }} • {{ complaint.category }} • {{ complaint.location_text }}</p>
+        <p>{{ complaint.reference_code }} | {{ complaint.category }} | {{ complaint.location_text }}</p>
     </div>
     <div class="button-row">
         <span class="status-pill">{{ complaint.status.value }}</span>
@@ -30,12 +30,35 @@
             <div><span>SLA</span><strong>{{ complaint.due_at|sla }}</strong></div>
         </div>
         <p class="complaint-description">{{ complaint.description }}</p>
-        {% if complaint.ward %}
-            <p><strong>Ward:</strong> {{ complaint.ward }}</p>
-        {% endif %}
-        {% if complaint.latitude and complaint.longitude %}
-            <p><strong>Coordinates:</strong> {{ complaint.latitude }}, {{ complaint.longitude }}</p>
-        {% endif %}
+        <div class="map-detail-card">
+            <div class="map-detail-copy">
+                <h3>Location intelligence</h3>
+                <p>Use the saved landmark and coordinates to dispatch field teams to the right place quickly.</p>
+                <div class="detail-grid compact-detail-grid">
+                    <div><span>Landmark</span><strong>{{ complaint.location_text }}</strong></div>
+                    <div><span>Ward</span><strong>{{ complaint.ward or "Not specified" }}</strong></div>
+                    <div><span>Latitude</span><strong>{{ complaint.latitude if complaint.latitude else "Not captured" }}</strong></div>
+                    <div><span>Longitude</span><strong>{{ complaint.longitude if complaint.longitude else "Not captured" }}</strong></div>
+                </div>
+                {% if complaint.latitude and complaint.longitude %}
+                    <a
+                        class="ghost-button link-button"
+                        href="https://www.google.com/maps?q={{ complaint.latitude }},{{ complaint.longitude }}"
+                        target="_blank"
+                        rel="noreferrer"
+                    >Open in Google Maps</a>
+                {% endif %}
+            </div>
+            <div
+                class="map-canvas map-canvas-detail"
+                data-complaint-map-display
+                {% if complaint.latitude and complaint.longitude %}
+                    data-lat="{{ complaint.latitude }}"
+                    data-lng="{{ complaint.longitude }}"
+                {% endif %}
+                data-location-label="{{ complaint.location_text }}"
+            ></div>
+        </div>
         {% if complaint.image_path %}
             <div class="evidence-block">
                 <h3>Evidence image</h3>

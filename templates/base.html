@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ app_name }}{% endblock %}</title>
     <link rel="stylesheet" href="/static/css/app.css">
+    {% block head_extras %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}" data-google-maps-key="{{ google_maps_api_key }}">
+    <div class="page-backdrop page-backdrop-one"></div>
+    <div class="page-backdrop page-backdrop-two"></div>
     <header class="site-header">
         <div class="brand-block">
             <a href="/" class="brand-mark">PublicEye</a>
@@ -33,6 +36,17 @@
         {% include "partials/flash.html" %}
         {% block content %}{% endblock %}
     </main>
+    <footer class="site-footer">
+        <div>
+            <strong>PublicEye</strong>
+            <p class="muted-copy">Digitizing civic reporting with accountability, evidence, and transparent workflows.</p>
+        </div>
+        <div class="footer-badges">
+            <span class="chip">FastAPI</span>
+            <span class="chip">Role-based workflows</span>
+            <span class="chip">Location-aware reporting</span>
+        </div>
+    </footer>
 
     <script src="/static/js/app.js"></script>
 </body>

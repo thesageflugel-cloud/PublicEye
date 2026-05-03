@@ -7,7 +7,7 @@
     <div>
         <span class="eyebrow">Citizen Portal</span>
         <h1>Welcome, {{ current_user.full_name }}</h1>
-        <p>Track your civic complaints, view updates, and submit new issues with evidence.</p>
+        <p>Track every complaint, monitor response progress, and report new civic issues with better location context.</p>
     </div>
     <a class="primary-button" href="/complaints/new">Report New Issue</a>
 </section>
@@ -17,6 +17,29 @@
     <article class="stat-card"><span>Open</span><strong>{{ metrics.open }}</strong></article>
     <article class="stat-card"><span>Resolved</span><strong>{{ metrics.resolved }}</strong></article>
     <article class="stat-card"><span>Escalated</span><strong>{{ metrics.escalated }}</strong></article>
+</section>
+
+<section class="grid-two">
+    <article class="panel">
+        <div class="section-heading">
+            <h2>How to get faster action</h2>
+        </div>
+        <ul class="feature-list">
+            <li>Use a specific title and describe the public impact clearly.</li>
+            <li>Add an evidence image whenever possible.</li>
+            <li>Capture the issue location precisely for easier field verification.</li>
+        </ul>
+    </article>
+    <article class="panel">
+        <div class="section-heading">
+            <h2>What happens next</h2>
+        </div>
+        <ul class="feature-list">
+            <li>Complaints move through assignment, field progress, and final closure.</li>
+            <li>Each update is timestamped so you can follow accountability.</li>
+            <li>Escalated complaints are flagged when they miss expected response windows.</li>
+        </ul>
+    </article>
 </section>
 
 <section class="panel">

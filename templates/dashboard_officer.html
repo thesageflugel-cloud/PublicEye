@@ -7,7 +7,7 @@
     <div>
         <span class="eyebrow">Officer Portal</span>
         <h1>{{ current_user.department.name if current_user.department else "Department" }} Operations</h1>
-        <p>Manage complaint queues, respond to updates, and move cases toward resolution.</p>
+        <p>Manage field queues, inspect complaint context, and push cases toward timely closure.</p>
     </div>
 </section>
 
@@ -16,6 +16,19 @@
     <article class="stat-card"><span>Assigned to me</span><strong>{{ metrics.assigned_to_me }}</strong></article>
     <article class="stat-card"><span>Open queue</span><strong>{{ metrics.queue_total }}</strong></article>
     <article class="stat-card"><span>Critical open</span><strong>{{ metrics.critical_open }}</strong></article>
+</section>
+
+<section class="panel">
+    <div class="section-heading">
+        <h2>Field response focus</h2>
+        <p>Use complaint detail pages to review evidence, pin the issue location, and add proof-backed updates.</p>
+    </div>
+    <div class="roadmap-tags">
+        <span class="chip">Evidence review</span>
+        <span class="chip">Location verification</span>
+        <span class="chip">Progress notes</span>
+        <span class="chip">Resolution proof</span>
+    </div>
 </section>
 
 <section class="panel">

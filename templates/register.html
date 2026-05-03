@@ -4,34 +4,44 @@
 
 {% block content %}
 <section class="auth-shell">
-    <article class="auth-card wide-card">
-        <span class="eyebrow">Citizen Onboarding</span>
-        <h1>Create a citizen account</h1>
-        <form method="post" action="/register" class="form-grid two-col">
-            <label>
-                <span>Full name</span>
-                <input type="text" name="full_name" required>
-            </label>
-            <label>
-                <span>Email</span>
-                <input type="email" name="email" required>
-            </label>
-            <label>
-                <span>Phone</span>
-                <input type="text" name="phone" placeholder="Optional">
-            </label>
-            <label>
-                <span>Password</span>
-                <input type="password" name="password" required>
-            </label>
-            <label>
-                <span>Confirm password</span>
-                <input type="password" name="confirm_password" required>
-            </label>
-            <div></div>
-            <button type="submit" class="primary-button">Create account</button>
-        </form>
-        <p class="muted-copy">Officer and admin accounts are managed from the admin dashboard.</p>
+    <article class="auth-card wide-card auth-split-card">
+        <div class="auth-intro">
+            <span class="eyebrow">Citizen Onboarding</span>
+            <h1>Create a citizen account</h1>
+            <p>Register once and start reporting civic issues with evidence, ownership, and transparent status tracking.</p>
+            <ul class="feature-list">
+                <li>Report complaints with photos and location details.</li>
+                <li>Follow every workflow update from one dashboard.</li>
+                <li>Get ready for upcoming map and notification upgrades.</li>
+            </ul>
+        </div>
+        <div class="auth-form-panel">
+            <form method="post" action="/register" class="form-grid two-col">
+                <label>
+                    <span>Full name</span>
+                    <input type="text" name="full_name" required>
+                </label>
+                <label>
+                    <span>Email</span>
+                    <input type="email" name="email" required>
+                </label>
+                <label>
+                    <span>Phone</span>
+                    <input type="text" name="phone" placeholder="Optional">
+                </label>
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="password" required>
+                </label>
+                <label>
+                    <span>Confirm password</span>
+                    <input type="password" name="confirm_password" required>
+                </label>
+                <div></div>
+                <button type="submit" class="primary-button">Create account</button>
+            </form>
+            <p class="muted-copy">Officer and admin accounts are managed from the admin dashboard.</p>
+        </div>
     </article>
 </section>
 {% endblock %}

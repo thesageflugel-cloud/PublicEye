@@ -9,7 +9,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
 
-from app.config import APP_NAME, COMPLAINT_CATEGORIES, TEMPLATES_DIR
+from app.config import APP_NAME, COMPLAINT_CATEGORIES, GOOGLE_MAPS_API_KEY, TEMPLATES_DIR
 from app.database import get_db
 from app.models import Complaint, ComplaintStatus, ComplaintUpdate, Department, PriorityLevel, RoleEnum, User
 from app.security import consume_flashes, flash, hash_password, verify_password
@@ -39,6 +39,7 @@ def render(request: Request, template_name: str, context: dict) -> HTMLResponse:
         "request": request,
         "app_name": APP_NAME,
         "flashes": consume_flashes(request),
+        "google_maps_api_key": GOOGLE_MAPS_API_KEY,
     }
     base_context.update(context)
     return templates.TemplateResponse(template_name, base_context)
